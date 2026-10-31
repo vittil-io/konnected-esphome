@@ -88,12 +88,30 @@ external_components:
   - source: github://konnected-io/konnected-esphome@master
     refresh: 5min
     components: [ secplus_gdo ]
+  - source: github://vittil-io/vittil
+    components: [ vittil ]
 
   # Un-comment below and comment above for local modification
   # - source:
   #     type: local
   #     path: components
   #   components: [ secplus_gdo ]
+
+####
+# VITTIL
+# Crash reports from devices in the field (https://vittil.io): the coredump of a crash is
+# uploaded on the next boot and decoded against this build's ELF. Your project key goes in
+# secrets.yaml as vittil_project_key.
+vittil:
+  project_key: !secret vittil_project_key
+
+button:
+  - platform: template
+    name: "Vittil Test Crash"
+    entity_category: diagnostic
+    disabled_by_default: true
+    on_press:
+      - lambda: abort();
 
 ####
 # PACKAGES
